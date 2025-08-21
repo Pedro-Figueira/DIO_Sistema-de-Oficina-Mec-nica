@@ -1,0 +1,46 @@
+✅ Recuperação simples
+SELECT nome, telefone FROM Cliente;
+
+✅ Filtro com WHERE
+SELECT * FROM Veiculo WHERE ano >= 2020;
+
+✅ Expressão para atributo derivado
+SELECT 
+    c.nome,
+    SUM(isv.quantidade * s.preco_unitario + ip.quantidade * p.preco_unitario) AS valor_total_os
+FROM Cliente c
+JOIN Veiculo v ON c.id_cliente = v.id_cliente
+JOIN OrdemServico os ON v.id_veiculo = os.id_veiculo
+LEFT JOIN ItemServico isv ON os.id_os = isv.id_os
+LEFT JOIN Servico s ON isv.id_servico = s.id_servico
+LEFT JOIN ItemPeca ip ON os.id_os = ip.id_os
+LEFT JOIN Peca p ON ip.id_peca = p.id_peca
+GROUP BY c.nome;
+
+✅ Ordenação (ORDER BY)
+SELECT descricao, preco_unitario FROM Peca ORDER BY preco_unitario DESC;
+
+✅ Filtro em grupos (HAVING)
+SELECT os.id_os, SUM(ip.quantidade) AS total_pecas
+FROM OrdemServico os
+JOIN ItemPeca ip ON os.id_os = ip.id_os
+GROUP BY os.id_os
+HAVING SUM(ip.quantidade) > 2;
+
+✅ Junções mais complexas
+SELECT 
+    os.id_os,
+    c.nome AS cliente,
+    v.modelo AS veiculo,
+    m.nome AS mecanico,
+    s.descricao AS servico,
+    p.descricao AS peca
+FROM OrdemServico os
+JOIN Veiculo v ON os.id_veiculo = v.id_veiculo
+JOIN Cliente c ON v.id_cliente = c.id_cliente
+JOIN OS_Mecanico om ON os.id_os = om.id_os
+JOIN Mecanico m ON om.id_mecanico = m.id_mecanico
+LEFT JOIN ItemServico isv ON os.id_os = isv.id_os
+LEFT JOIN Servico s ON isv.id_servico = s.id_servico
+LEFT JOIN ItemPeca ip ON os.id_os = ip.id_os
+LEFT JOIN Peca p ON ip.id_peca = p.id_peca;

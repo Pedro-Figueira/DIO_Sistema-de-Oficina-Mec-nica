@@ -1,0 +1,43 @@
+-- Clientes
+INSERT INTO Cliente (nome, telefone, email) VALUES 
+('Ana Silva', '11999999999', 'ana@email.com'),
+('Pedro Coelho', '21988888888', 'pedro@email.com');
+
+-- Veículos
+INSERT INTO Veiculo (placa, modelo, ano, id_cliente) VALUES
+('ABC1234', 'Fiat Uno', 2015, 1),
+('XYZ9876', 'Honda Civic', 2020, 2);
+
+-- Ordens de Serviço
+INSERT INTO OrdemServico (data_emissao, status, id_veiculo) VALUES
+('2025-08-20', 'Aberta', 1),
+('2025-08-21', 'Fechada', 2);
+
+-- Serviços
+INSERT INTO Servico (descricao, preco_unitario) VALUES
+('Troca de óleo', 150.00),
+('Alinhamento', 200.00);
+
+-- Peças
+INSERT INTO Peca (descricao, preco_unitario, estoque) VALUES
+('Filtro de óleo', 50.00, 10),
+('Pneu Aro 15', 300.00, 20);
+
+-- Itens da OS
+INSERT INTO ItemServico (id_os, id_servico, quantidade) VALUES
+(1, 1, 1), -- Troca de óleo
+(2, 2, 1); -- Alinhamento
+
+INSERT INTO ItemPeca (id_os, id_peca, quantidade) VALUES
+(1, 1, 1), -- Filtro de óleo
+(2, 2, 4); -- Pneus
+
+-- Mecânicos
+INSERT INTO Mecanico (nome, especialidade) VALUES
+('Carlos Mendes', 'Mecânica Geral'),
+('João Lima', 'Suspensão');
+
+-- Relação OS-Mecânico
+INSERT INTO OS_Mecanico (id_os, id_mecanico) VALUES
+(1, 1),
+(2, 2);
